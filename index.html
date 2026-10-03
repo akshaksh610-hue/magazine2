@@ -1,0 +1,1232 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Moments Together ❤️</title>
+
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: Georgia, serif;
+    background: linear-gradient(
+        125deg,
+        #42152f,
+        #87365f,
+        #bd668d,
+        #632344,
+        #a34b73
+    );
+    background-size: 300% 300%;
+    animation: backgroundGlow 16s ease infinite;
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* SHINY BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    pointer-events: none;
+    z-index: 0;
+
+    background:
+        radial-gradient(circle at 20% 30%,
+            rgba(255,255,255,.18), transparent 15%),
+        radial-gradient(circle at 75% 20%,
+            rgba(255,220,240,.16), transparent 18%),
+        radial-gradient(circle at 60% 75%,
+            rgba(255,255,255,.12), transparent 20%),
+        radial-gradient(circle at 15% 85%,
+            rgba(255,190,220,.13), transparent 18%);
+
+    animation: lightFloat 18s ease-in-out infinite alternate;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+
+    background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgba(255,255,255,.055) 45%,
+        rgba(255,230,245,.12) 50%,
+        rgba(255,255,255,.04) 55%,
+        transparent 70%
+    );
+
+    background-size: 250% 250%;
+    animation: shineMove 12s linear infinite;
+}
+
+@keyframes backgroundGlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes lightFloat {
+    0% {
+        transform: translate(-2%, -1%) scale(1);
+        opacity: .65;
+    }
+    100% {
+        transform: translate(2%, 2%) scale(1.08);
+        opacity: 1;
+    }
+}
+
+@keyframes shineMove {
+    0% { background-position: 150% 50%; }
+    100% { background-position: -150% 50%; }
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.screen {
+    display: none;
+    min-height: 100vh;
+    width: 100%;
+    padding: 25px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* INTRO */
+
+.intro-card {
+    width: min(500px,95%);
+    padding: 40px 25px;
+    border-radius: 25px;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.3);
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.2),
+        0 0 25px rgba(255,190,220,.12);
+    backdrop-filter: blur(10px);
+}
+
+.intro-card h1 {
+    color: #ffe4ed;
+    font-size: clamp(28px,6vw,42px);
+    margin-bottom: 18px;
+}
+
+.intro-card p {
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.heart-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+    animation: heartbeat 1.3s infinite;
+}
+
+@keyframes heartbeat {
+    50% { transform: scale(1.2); }
+}
+
+.main-btn {
+    padding: 13px 28px;
+    border-radius: 30px;
+    background: #fff0f5;
+    color: #8e3158;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+    transition: .3s;
+}
+
+.main-btn:hover {
+    transform: translateY(-3px);
+    background: white;
+}
+
+/* QUESTIONS */
+
+.question-number {
+    color: #ffd8e6;
+    margin-bottom: 15px;
+    animation: numberEnter .6s ease both;
+}
+
+.question-text {
+    font-size: clamp(22px,5vw,30px);
+    line-height: 1.5;
+    margin-bottom: 25px;
+    animation: questionTextEnter .7s ease both;
+}
+
+#questionScreen .intro-card {
+    animation: questionCardEnter .8s cubic-bezier(.2,.8,.2,1) both;
+    border: 1px solid rgba(255,255,255,.4);
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.2),
+        0 0 25px rgba(255,190,220,.16),
+        inset 0 0 20px rgba(255,255,255,.08);
+}
+
+@keyframes questionCardEnter {
+    0% {
+        opacity: 0;
+        transform: translateY(35px) scale(.92);
+        filter: blur(5px);
+    }
+    65% {
+        opacity: 1;
+        transform: translateY(-5px) scale(1.015);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes questionTextEnter {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes numberEnter {
+    from {
+        opacity: 0;
+        transform: scale(.75);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#questionScreen .main-btn {
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#questionScreen .main-btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 7px 20px rgba(255,210,230,.25);
+}
+
+/* COVER PREVIEW */
+
+.cover-preview {
+    width: min(330px,75vw);
+    aspect-ratio: 500 / 650;
+    margin: 25px auto;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,.4);
+}
+
+.cover-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* BOOK */
+
+#bookScreen {
+    padding: 15px;
+    overflow: hidden;
+}
+
+.book-heading {
+    margin: 8px 0 18px;
+    color: #ffe1ec;
+    font-size: clamp(22px,4vw,30px);
+    text-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+
+#book {
+    width: min(1000px,94vw);
+    height: min(650px,68vh);
+    min-height: 350px;
+    margin: auto;
+    position: relative;
+}
+
+/* PAGE DESIGN */
+
+.page {
+    overflow: hidden;
+    background: #fffdf9;
+    color: #573d46;
+}
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: #fffdf9;
+}
+
+.page-content img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* INVISIBLE SPACER PAGES */
+
+.spacer-page {
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+}
+
+.page:has(.spacer-page) {
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* BOOK SHADOW */
+
+.stf__item {
+    box-shadow: 0 0 12px rgba(0,0,0,.15);
+}
+
+.stf__block {
+    perspective: 2000px;
+}
+
+/* CONTROLS */
+
+.book-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px auto 5px;
+}
+
+.control-btn {
+    background: #ffeaf1;
+    color: #823451;
+    border-radius: 25px;
+    padding: 11px 19px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.control-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+#pageCounter {
+    color: #ffe4ed;
+    font-size: 14px;
+    min-width: 110px;
+}
+
+/* MUSIC */
+
+.music-player {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    background: rgba(255,255,255,.95);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+}
+
+.music-player button {
+    background: #8e3158;
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+}
+
+#songName {
+    color: #77334e;
+    font-size: 12px;
+    padding: 0 5px;
+}
+
+/* FLOATING HEARTS */
+
+.floating-heart {
+    position: fixed;
+    bottom: -30px;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp linear forwards;
+    opacity: .8;
+}
+
+@keyframes floatUp {
+    to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* THANK YOU */
+
+#thankYouScreen {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at center,#a64d75,#541b3c);
+}
+
+.thankyou-title {
+    font-size: clamp(35px,7vw,58px);
+    color: #ffe6ef;
+    margin-bottom: 12px;
+    animation: titleAppear 1.5s ease both;
+    text-shadow: 0 5px 15px rgba(0,0,0,.25);
+}
+
+.thankyou-message {
+    max-width: 600px;
+    font-size: clamp(17px,3vw,22px);
+    line-height: 1.6;
+    color: #fff0f5;
+    margin: 12px auto;
+    animation: titleAppear 2s ease both;
+}
+
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* BOUQUET */
+
+.bouquet {
+    width: 280px;
+    height: 300px;
+    position: relative;
+    margin: 5px auto 15px;
+    animation: bouquetAppear 2s ease both;
+}
+
+@keyframes bouquetAppear {
+    from {
+        opacity: 0;
+        transform: scale(.3) translateY(80px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.flower {
+    position: absolute;
+    font-size: 58px;
+    z-index: 3;
+    animation: flowerSway 3s ease-in-out infinite alternate;
+}
+
+.flower.one { left: 65px; top: 15px; }
+.flower.two { left: 115px; top: 0; animation-delay: .3s; }
+.flower.three { left: 160px; top: 25px; animation-delay: .6s; }
+.flower.four { left: 35px; top: 65px; animation-delay: .4s; }
+.flower.five { left: 125px; top: 70px; animation-delay: .8s; }
+
+@keyframes flowerSway {
+    from { transform: rotate(-7deg); }
+    to { transform: rotate(7deg); }
+}
+
+.stem {
+    position: absolute;
+    width: 5px;
+    height: 145px;
+    background: linear-gradient(to right,#315c38,#79a76c);
+    top: 85px;
+    left: 137px;
+    transform-origin: top;
+    border-radius: 10px;
+}
+
+.stem.s1 { transform: rotate(-27deg); }
+.stem.s2 { transform: rotate(-12deg); }
+.stem.s3 { transform: rotate(10deg); }
+.stem.s4 { transform: rotate(25deg); }
+.stem.s5 { transform: rotate(0deg); }
+
+.bouquet-wrap {
+    position: absolute;
+    width: 145px;
+    height: 105px;
+    background: linear-gradient(135deg,#f6c2d2,#fff0f5,#d98ca9);
+    left: 68px;
+    top: 150px;
+    clip-path: polygon(5% 0,95% 0,72% 100%,28% 100%);
+    z-index: 4;
+}
+
+.bouquet-ribbon {
+    position: absolute;
+    width: 70px;
+    height: 22px;
+    left: 105px;
+    top: 205px;
+    background: #a62f59;
+    border-radius: 50%;
+    z-index: 5;
+}
+
+.bouquet-ribbon::before,
+.bouquet-ribbon::after {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 35px;
+    background: #a62f59;
+    top: 5px;
+}
+
+.bouquet-ribbon::before {
+    left: -20px;
+    transform: rotate(25deg);
+    clip-path: polygon(0 0,100% 0,70% 100%,35% 70%);
+}
+
+.bouquet-ribbon::after {
+    right: -20px;
+    transform: rotate(-25deg);
+    clip-path: polygon(0 0,100% 0,65% 70%,30% 100%);
+}
+
+/* FALLING PETALS */
+
+.petal {
+    position: absolute;
+    top: -30px;
+    font-size: 20px;
+    animation: petalFall linear forwards;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes petalFall {
+    to {
+        transform: translateY(110vh) rotate(600deg);
+        opacity: 0;
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:650px) {
+    #book {
+        width: 96vw;
+        height: 60vh;
+        min-height: 300px;
+    }
+
+    .book-controls {
+        gap: 6px;
+    }
+
+    .control-btn {
+        padding: 9px 13px;
+        font-size: 12px;
+    }
+
+    .music-player {
+        top: 8px;
+        right: 8px;
+    }
+
+    .bouquet {
+        transform: scale(.85);
+        margin-top: -5px;
+        margin-bottom: -5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO -->
+
+<section id="introScreen" class="screen active">
+    <div class="intro-card">
+        <div class="heart-icon">❤️</div>
+        <h1>Our Little Love Story</h1>
+        <p>
+            Every picture has a memory.<br>
+            Every memory has a story.<br>
+            And this one is ours.
+        </p>
+        <button class="main-btn" onclick="startQuestions()">
+            Open My Little Surprise 💌
+        </button>
+    </div>
+</section>
+
+<!-- QUESTIONS -->
+
+<section id="questionScreen" class="screen">
+    <div class="intro-card">
+        <div class="heart-icon">💗</div>
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-text" id="questionText"></div>
+        <button class="main-btn" onclick="nextQuestion()">Yes ❤️</button>
+        <button class="main-btn" onclick="nextQuestion()">Of course 💕</button>
+    </div>
+</section>
+
+<!-- REVEAL -->
+
+<section id="revealScreen" class="screen">
+    <div class="intro-card">
+        <div class="heart-icon">💝</div>
+        <h1>A Little Gift For You</h1>
+        <p>
+            I collected some of our favourite moments
+            and turned them into something special.
+        </p>
+        <button class="main-btn" onclick="showCover()">
+            See Your Surprise ✨
+        </button>
+    </div>
+</section>
+
+<!-- COVER PREVIEW -->
+
+<section id="coverScreen" class="screen">
+    <div class="intro-card">
+        <h1>Our Moments Together ❤️</h1>
+        <p>A little magazine filled with our memories.</p>
+
+        <div class="cover-preview">
+            <img src="1000364043.jpg" alt="Front Cover">
+        </div>
+
+        <button class="main-btn" onclick="openMagazine()">
+            Open Magazine 💗
+        </button>
+    </div>
+</section>
+
+<!-- MUSIC PLAYER -->
+
+<div class="music-player" id="musicPlayer">
+    <button onclick="previousSong()">⏮</button>
+    <button onclick="toggleMusic()" id="playPauseBtn">▶</button>
+    <button onclick="nextSong()">⏭</button>
+    <span id="songName">Song 1</span>
+</div>
+
+<audio id="music" loop></audio>
+
+<!-- MAGAZINE -->
+
+<section id="bookScreen" class="screen">
+    <h2 class="book-heading">Our Moments Together ❤️</h2>
+
+    <div id="book">
+
+        <!-- INVISIBLE LEFT SPACER -->
+        <div class="page">
+            <div class="page-content spacer-page"></div>
+        </div>
+
+        <!-- FRONT COVER RIGHT -->
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364043.jpg" alt="Front Cover">
+            </div>
+        </div>
+
+        <!-- INSIDE PAGES -->
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364044.jpg" alt="Memory 1">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364045.jpg" alt="Memory 2">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364046.jpg" alt="Memory 3">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364047.jpg" alt="Memory 4">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364048.jpg" alt="Memory 5">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364049.jpg" alt="Memory 6">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364050.jpg" alt="Memory 7">
+            </div>
+        </div>
+
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364051.jpg" alt="Memory 8">
+            </div>
+        </div>
+
+        <!-- BACK COVER LEFT -->
+        <div class="page">
+            <div class="page-content">
+                <img src="1000364052.jpg" alt="Back Cover">
+            </div>
+        </div>
+
+        <!-- INVISIBLE RIGHT SPACER -->
+        <div class="page">
+            <div class="page-content spacer-page"></div>
+        </div>
+
+    </div>
+
+    <div class="book-controls">
+        <button class="control-btn" onclick="previousPage()">
+            ← Previous
+        </button>
+
+        <span id="pageCounter">Front Cover</span>
+
+        <button class="control-btn" onclick="nextPage()">
+            Next →
+        </button>
+
+        <button class="control-btn" onclick="closeMagazine()">
+            Close Magazine
+        </button>
+    </div>
+</section>
+
+<!-- THANK YOU SCREEN -->
+
+<section id="thankYouScreen" class="screen">
+
+    <h1 class="thankyou-title">Thank You ❤️</h1>
+
+    <div class="bouquet">
+        <div class="flower one">🌹</div>
+        <div class="flower two">🌷</div>
+        <div class="flower three">🌹</div>
+        <div class="flower four">🌸</div>
+        <div class="flower five">🌷</div>
+
+        <div class="stem s1"></div>
+        <div class="stem s2"></div>
+        <div class="stem s3"></div>
+        <div class="stem s4"></div>
+        <div class="stem s5"></div>
+
+        <div class="bouquet-wrap"></div>
+        <div class="bouquet-ribbon"></div>
+    </div>
+
+    <p class="thankyou-message">
+        Thank you for being a beautiful part of my story.
+        <br>
+        Some memories stay in our hearts forever. 💗
+    </p>
+
+    <p style="font-size:22px;margin:12px 0;">
+        With love, always. 💐
+    </p>
+
+    <button class="main-btn" onclick="replayBook()">
+        Replay Our Story ↻
+    </button>
+
+</section>
+
+<script>
+
+/* SCREEN MANAGEMENT */
+
+function showScreen(id) {
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+}
+
+/* QUESTIONS */
+
+const questions = [
+    "Do you remember how our story started? 💗",
+    "Do our little moments make you smile? 😊",
+    "Do you remember all our special memories? 🌸",
+    "Would you go on another adventure with me? ✨",
+    "Do you know how special these memories are? ❤️",
+    "Are you ready to see our little photo book? 💌"
+];
+
+let questionIndex = 0;
+
+function startQuestions() {
+    questionIndex = 0;
+    showQuestion();
+    showScreen("questionScreen");
+}
+
+function showQuestion() {
+    const card = document.querySelector("#questionScreen .intro-card");
+
+    card.style.animation = "none";
+    void card.offsetWidth;
+    card.style.animation = "";
+
+    document.getElementById("questionNumber").innerText =
+        "Question " + (questionIndex + 1) + " of 6";
+
+    document.getElementById("questionText").innerText =
+        questions[questionIndex];
+
+    const text = document.getElementById("questionText");
+    text.style.animation = "none";
+    void text.offsetWidth;
+    text.style.animation = "";
+}
+
+function nextQuestion() {
+    questionIndex++;
+
+    if (questionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showScreen("revealScreen");
+    }
+}
+
+function showCover() {
+    showScreen("coverScreen");
+}
+
+/* MUSIC */
+
+const songs = ["song1.mp3", "song2.mp3"];
+const songTitles = ["Song 1", "Song 2"];
+
+let currentSong = 0;
+
+const music = document.getElementById("music");
+const playPauseBtn = document.getElementById("playPauseBtn");
+
+function loadSong() {
+    music.src = songs[currentSong];
+    document.getElementById("songName").innerText =
+        songTitles[currentSong];
+}
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play().then(() => {
+            playPauseBtn.innerText = "Ⅱ";
+        }).catch(() => {
+            alert("Please check that your song files are in the same folder as index.html.");
+        });
+    } else {
+        music.pause();
+        playPauseBtn.innerText = "▶";
+    }
+}
+
+function nextSong() {
+    currentSong = (currentSong + 1) % songs.length;
+    loadSong();
+
+    music.play().then(() => {
+        playPauseBtn.innerText = "Ⅱ";
+    }).catch(() => {
+        playPauseBtn.innerText = "▶";
+    });
+}
+
+function previousSong() {
+    currentSong = (currentSong - 1 + songs.length) % songs.length;
+    loadSong();
+
+    music.play().then(() => {
+        playPauseBtn.innerText = "Ⅱ";
+    }).catch(() => {
+        playPauseBtn.innerText = "▶";
+    });
+}
+
+music.addEventListener("ended", nextSong);
+loadSong();
+
+/* PAGE FLIP */
+
+let pageFlip = null;
+let closingBook = false;
+let flipBusy = false;
+let closeTimer = null;
+let thankYouShown = false;
+let petalTimer = null;
+
+const bookElement = document.getElementById("book");
+
+function getCurrentIndex() {
+    if (!pageFlip) return 0;
+    return pageFlip.getCurrentPageIndex();
+}
+
+function updatePageCounter() {
+    if (!pageFlip) return;
+
+    const index = getCurrentIndex();
+
+    const labels = {
+        0: "Front Cover",
+        2: "Pages 1 - 2",
+        4: "Pages 3 - 4",
+        6: "Pages 5 - 6",
+        8: "Pages 7 - 8",
+        10: "Back Cover"
+    };
+
+    document.getElementById("pageCounter").innerText =
+        labels[index] || "Our Memories ❤️";
+}
+
+/* OPEN MAGAZINE */
+
+function openMagazine() {
+    showScreen("bookScreen");
+
+    document.getElementById("musicPlayer").style.display = "flex";
+
+    closingBook = false;
+    flipBusy = false;
+    thankYouShown = false;
+
+    if (pageFlip) {
+        pageFlip.destroy();
+        pageFlip = null;
+    }
+
+    pageFlip = new St.PageFlip(bookElement, {
+        width: 500,
+        height: 650,
+
+        size: "stretch",
+        minWidth: 280,
+        maxWidth: 1000,
+        minHeight: 350,
+        maxHeight: 750,
+
+        drawShadow: true,
+        maxShadowOpacity: 0.75,
+        flippingTime: 1400,
+
+        usePortrait: false,
+        showCover: false,
+        autoSize: true,
+        mobileScrollSupport: true,
+        useMouseEvents: true,
+
+        startPage: 0,
+        disableFlipByClick: false
+    });
+
+    const pages = bookElement.querySelectorAll(".page");
+
+    pageFlip.loadFromHTML(pages);
+
+    pageFlip.on("init", function() {
+        updatePageCounter();
+    });
+
+    pageFlip.on("flip", function() {
+        updatePageCounter();
+        flipBusy = false;
+
+        if (closingBook) {
+            clearTimeout(closeTimer);
+
+            closeTimer = setTimeout(function() {
+                closeOneStep();
+            }, 1450);
+        }
+    });
+
+    pageFlip.on("changeState", function(event) {
+        if (event.data === "flipping") {
+            flipBusy = true;
+        }
+
+        if (event.data === "read") {
+            flipBusy = false;
+        }
+    });
+}
+
+/* NEXT PAGE */
+
+function nextPage() {
+    if (!pageFlip || closingBook || flipBusy) return;
+
+    const index = getCurrentIndex();
+
+    if (index >= 10) {
+        showThankYou();
+        return;
+    }
+
+    pageFlip.flipNext("bottom");
+}
+
+/* PREVIOUS PAGE */
+
+function previousPage() {
+    if (!pageFlip || closingBook || flipBusy) return;
+
+    if (getCurrentIndex() <= 0) return;
+
+    pageFlip.flipPrev("bottom");
+}
+
+/* CLICK ON FINAL BACK COVER */
+
+bookElement.addEventListener("click", function() {
+    if (!pageFlip || closingBook || flipBusy) return;
+
+    if (getCurrentIndex() >= 10) {
+        setTimeout(function() {
+            if (
+                pageFlip &&
+                !closingBook &&
+                getCurrentIndex() >= 10
+            ) {
+                showThankYou();
+            }
+        }, 300);
+    }
+});
+
+/* THANK YOU ANIMATION */
+
+function showThankYou() {
+    if (closingBook || thankYouShown) return;
+
+    thankYouShown = true;
+
+    document.getElementById("musicPlayer").style.display = "none";
+
+    showScreen("thankYouScreen");
+    startPetals();
+}
+
+function startPetals() {
+    clearInterval(petalTimer);
+
+    const thankYou = document.getElementById("thankYouScreen");
+
+    petalTimer = setInterval(function() {
+        if (!thankYou.classList.contains("active")) return;
+
+        const petal = document.createElement("div");
+        petal.className = "petal";
+
+        const options = ["🌸", "🌹", "💗", "🌷"];
+
+        petal.innerText =
+            options[Math.floor(Math.random() * options.length)];
+
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.animationDuration =
+            (4 + Math.random() * 4) + "s";
+
+        petal.style.fontSize =
+            (15 + Math.random() * 15) + "px";
+
+        thankYou.appendChild(petal);
+
+        setTimeout(() => petal.remove(), 8500);
+
+    }, 350);
+}
+
+/* CLOSE MAGAZINE */
+
+function closeMagazine() {
+    if (!pageFlip || closingBook) return;
+
+    closingBook = true;
+    flipBusy = true;
+
+    clearTimeout(closeTimer);
+    closeOneStep();
+}
+
+function closeOneStep() {
+    if (!pageFlip || !closingBook) return;
+
+    const index = getCurrentIndex();
+
+    if (index > 0) {
+        pageFlip.flipPrev("bottom");
+
+        closeTimer = setTimeout(function() {
+            if (
+                pageFlip &&
+                closingBook &&
+                getCurrentIndex() === index
+            ) {
+                closeOneStep();
+            }
+        }, 1500);
+
+    } else {
+        finishClosing();
+    }
+}
+
+function finishClosing() {
+    clearTimeout(closeTimer);
+
+    closingBook = false;
+    flipBusy = false;
+
+    if (pageFlip) {
+        pageFlip.destroy();
+        pageFlip = null;
+    }
+
+    document.getElementById("musicPlayer").style.display = "none";
+
+    music.pause();
+    music.currentTime = 0;
+    playPauseBtn.innerText = "▶";
+
+    showScreen("coverScreen");
+}
+
+/* REPLAY */
+
+function replayBook() {
+    clearInterval(petalTimer);
+
+    document.querySelectorAll(".petal").forEach(p => p.remove());
+
+    if (pageFlip) {
+        pageFlip.destroy();
+        pageFlip = null;
+    }
+
+    closingBook = false;
+    flipBusy = false;
+    thankYouShown = false;
+
+    music.pause();
+    music.currentTime = 0;
+    playPauseBtn.innerText = "▶";
+
+    document.getElementById("musicPlayer").style.display = "none";
+
+    showScreen("introScreen");
+}
+
+/* FLOATING HEARTS */
+
+function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+
+    const hearts = ["❤️", "💕", "💗", "💖", "💘"];
+
+    heart.innerText =
+        hearts[Math.floor(Math.random() * hearts.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize =
+        (12 + Math.random() * 18) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 10000);
+}
+
+setInterval(createFloatingHeart, 900);
+
+</script>
+
+</body>
+</html>

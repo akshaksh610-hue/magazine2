@@ -33,25 +33,17 @@ body {
     position: relative;
 }
 
-/* SHINY BACKGROUND */
-
 body::before {
     content: "";
     position: fixed;
     inset: -50%;
     pointer-events: none;
     z-index: 0;
-
     background:
-        radial-gradient(circle at 20% 30%,
-            rgba(255,255,255,.18), transparent 15%),
-        radial-gradient(circle at 75% 20%,
-            rgba(255,220,240,.16), transparent 18%),
-        radial-gradient(circle at 60% 75%,
-            rgba(255,255,255,.12), transparent 20%),
-        radial-gradient(circle at 15% 85%,
-            rgba(255,190,220,.13), transparent 18%);
-
+        radial-gradient(circle at 20% 30%,rgba(255,255,255,.18),transparent 15%),
+        radial-gradient(circle at 75% 20%,rgba(255,220,240,.16),transparent 18%),
+        radial-gradient(circle at 60% 75%,rgba(255,255,255,.12),transparent 20%),
+        radial-gradient(circle at 15% 85%,rgba(255,190,220,.13),transparent 18%);
     animation: lightFloat 18s ease-in-out infinite alternate;
 }
 
@@ -61,7 +53,6 @@ body::after {
     inset: 0;
     pointer-events: none;
     z-index: 0;
-
     background: linear-gradient(
         115deg,
         transparent 30%,
@@ -70,7 +61,6 @@ body::after {
         rgba(255,255,255,.04) 55%,
         transparent 70%
     );
-
     background-size: 250% 250%;
     animation: shineMove 12s linear infinite;
 }
@@ -83,11 +73,11 @@ body::after {
 
 @keyframes lightFloat {
     0% {
-        transform: translate(-2%, -1%) scale(1);
+        transform: translate(-2%,-1%) scale(1);
         opacity: .65;
     }
     100% {
-        transform: translate(2%, 2%) scale(1.08);
+        transform: translate(2%,2%) scale(1.08);
         opacity: 1;
     }
 }
@@ -169,7 +159,7 @@ button {
 }
 
 .main-btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.03);
     background: white;
 }
 
@@ -237,15 +227,6 @@ button {
     }
 }
 
-#questionScreen .main-btn {
-    transition: transform .3s ease, box-shadow .3s ease;
-}
-
-#questionScreen .main-btn:hover {
-    transform: translateY(-4px) scale(1.04);
-    box-shadow: 0 7px 20px rgba(255,210,230,.25);
-}
-
 /* COVER PREVIEW */
 
 .cover-preview {
@@ -284,8 +265,6 @@ button {
     position: relative;
 }
 
-/* PAGE DESIGN */
-
 .page {
     overflow: hidden;
     background: #fffdf9;
@@ -307,8 +286,6 @@ button {
     object-fit: cover;
 }
 
-/* INVISIBLE SPACER PAGES */
-
 .spacer-page {
     width: 100%;
     height: 100%;
@@ -319,8 +296,6 @@ button {
     background: transparent !important;
     box-shadow: none !important;
 }
-
-/* BOOK SHADOW */
 
 .stf__item {
     box-shadow: 0 0 12px rgba(0,0,0,.15);
@@ -362,7 +337,7 @@ button {
     min-width: 110px;
 }
 
-/* MUSIC */
+/* MUSIC PLAYER */
 
 .music-player {
     position: fixed;
@@ -371,8 +346,8 @@ button {
     z-index: 100;
     display: none;
     align-items: center;
-    gap: 5px;
-    padding: 8px;
+    gap: 6px;
+    padding: 8px 12px;
     background: rgba(255,255,255,.95);
     border-radius: 30px;
     box-shadow: 0 4px 15px rgba(0,0,0,.2);
@@ -385,12 +360,23 @@ button {
     width: 32px;
     height: 32px;
     font-size: 14px;
+    flex-shrink: 0;
+    transition: .2s;
+}
+
+.music-player button:hover {
+    background: #bd668d;
+    transform: scale(1.1);
 }
 
 #songName {
     color: #77334e;
     font-size: 12px;
     padding: 0 5px;
+    max-width: 105px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 /* FLOATING HEARTS */
@@ -586,6 +572,18 @@ button {
     .music-player {
         top: 8px;
         right: 8px;
+        padding: 6px;
+        gap: 4px;
+    }
+
+    .music-player button {
+        width: 29px;
+        height: 29px;
+    }
+
+    #songName {
+        max-width: 75px;
+        font-size: 11px;
     }
 
     .bouquet {
@@ -664,34 +662,44 @@ button {
 <!-- MUSIC PLAYER -->
 
 <div class="music-player" id="musicPlayer">
-    <button onclick="previousSong()">⏮</button>
-    <button onclick="toggleMusic()" id="playPauseBtn">▶</button>
-    <button onclick="nextSong()">⏭</button>
+
+    <button onclick="previousSong()" title="Previous Song">⏮</button>
+
+    <button onclick="toggleMusic()" id="playPauseBtn" title="Play/Pause">
+        ▶
+    </button>
+
+    <button onclick="nextSong()" title="Next Song">⏭</button>
+
     <span id="songName">Song 1</span>
+
 </div>
 
-<audio id="music" loop></audio>
+<audio id="music" preload="auto"></audio>
 
 <!-- MAGAZINE -->
 
 <section id="bookScreen" class="screen">
+
     <h2 class="book-heading">Our Moments Together ❤️</h2>
 
     <div id="book">
 
         <!-- INVISIBLE LEFT SPACER -->
+
         <div class="page">
             <div class="page-content spacer-page"></div>
         </div>
 
-        <!-- FRONT COVER RIGHT -->
+        <!-- FRONT COVER -->
+
         <div class="page">
             <div class="page-content">
                 <img src="1000364043.jpg" alt="Front Cover">
             </div>
         </div>
 
-        <!-- INSIDE PAGES -->
+        <!-- MEMORY PAGES -->
 
         <div class="page">
             <div class="page-content">
@@ -741,7 +749,8 @@ button {
             </div>
         </div>
 
-        <!-- BACK COVER LEFT -->
+        <!-- BACK COVER -->
+
         <div class="page">
             <div class="page-content">
                 <img src="1000364052.jpg" alt="Back Cover">
@@ -749,6 +758,7 @@ button {
         </div>
 
         <!-- INVISIBLE RIGHT SPACER -->
+
         <div class="page">
             <div class="page-content spacer-page"></div>
         </div>
@@ -756,6 +766,7 @@ button {
     </div>
 
     <div class="book-controls">
+
         <button class="control-btn" onclick="previousPage()">
             ← Previous
         </button>
@@ -769,7 +780,9 @@ button {
         <button class="control-btn" onclick="closeMagazine()">
             Close Magazine
         </button>
+
     </div>
+
 </section>
 
 <!-- THANK YOU SCREEN -->
@@ -779,6 +792,7 @@ button {
     <h1 class="thankyou-title">Thank You ❤️</h1>
 
     <div class="bouquet">
+
         <div class="flower one">🌹</div>
         <div class="flower two">🌷</div>
         <div class="flower three">🌹</div>
@@ -793,6 +807,7 @@ button {
 
         <div class="bouquet-wrap"></div>
         <div class="bouquet-ribbon"></div>
+
     </div>
 
     <p class="thankyou-message">
@@ -816,11 +831,13 @@ button {
 /* SCREEN MANAGEMENT */
 
 function showScreen(id) {
+
     document.querySelectorAll(".screen").forEach(screen => {
         screen.classList.remove("active");
     });
 
     document.getElementById(id).classList.add("active");
+
 }
 
 /* QUESTIONS */
@@ -837,12 +854,23 @@ const questions = [
 let questionIndex = 0;
 
 function startQuestions() {
+
     questionIndex = 0;
+
+    // START MUSIC AUTOMATICALLY AFTER FIRST CLICK
+
+    document.getElementById("musicPlayer").style.display = "flex";
+
+    startMusic();
+
     showQuestion();
+
     showScreen("questionScreen");
+
 }
 
 function showQuestion() {
+
     const card = document.querySelector("#questionScreen .intro-card");
 
     card.style.animation = "none";
@@ -856,96 +884,199 @@ function showQuestion() {
         questions[questionIndex];
 
     const text = document.getElementById("questionText");
+
     text.style.animation = "none";
     void text.offsetWidth;
     text.style.animation = "";
+
 }
 
 function nextQuestion() {
+
     questionIndex++;
 
     if (questionIndex < questions.length) {
+
         showQuestion();
+
     } else {
+
         showScreen("revealScreen");
+
     }
+
 }
 
 function showCover() {
+
     showScreen("coverScreen");
+
 }
 
-/* MUSIC */
+/* ==================================
+   MUSIC PLAYER
+   ================================== */
 
-const songs = ["song1.mp3", "song2.mp3"];
-const songTitles = ["Song 1", "Song 2"];
+// CHANGE YOUR SONG FILE NAMES HERE
+
+const songs = [
+    "song1.mp3",
+    "song2.mp3"
+];
+
+// CHANGE SONG DISPLAY NAMES HERE
+
+const songTitles = [
+    "Our First Song ♡",
+    "Our Special Melody ♡"
+];
 
 let currentSong = 0;
 
 const music = document.getElementById("music");
-const playPauseBtn = document.getElementById("playPauseBtn");
+
+const playPauseBtn =
+    document.getElementById("playPauseBtn");
+
+const songName =
+    document.getElementById("songName");
+
+let musicStarted = false;
+
+/* LOAD SONG */
 
 function loadSong() {
+
     music.src = songs[currentSong];
-    document.getElementById("songName").innerText =
-        songTitles[currentSong];
+
+    songName.innerText = songTitles[currentSong];
+
 }
+
+/* AUTOMATIC MUSIC START */
+
+function startMusic() {
+
+    music.volume = 0.65;
+
+    music.play().then(() => {
+
+        musicStarted = true;
+
+        playPauseBtn.innerText = "Ⅱ";
+
+    }).catch(() => {
+
+        playPauseBtn.innerText = "▶";
+
+        console.log("Browser blocked music playback.");
+
+    });
+
+}
+
+/* PLAY AND PAUSE */
 
 function toggleMusic() {
+
     if (music.paused) {
-        music.play().then(() => {
-            playPauseBtn.innerText = "Ⅱ";
-        }).catch(() => {
-            alert("Please check that your song files are in the same folder as index.html.");
-        });
+
+        startMusic();
+
     } else {
+
         music.pause();
+
         playPauseBtn.innerText = "▶";
+
     }
+
 }
+
+/* NEXT SONG */
 
 function nextSong() {
+
     currentSong = (currentSong + 1) % songs.length;
+
     loadSong();
 
-    music.play().then(() => {
-        playPauseBtn.innerText = "Ⅱ";
-    }).catch(() => {
-        playPauseBtn.innerText = "▶";
-    });
+    startMusic();
+
 }
+
+/* PREVIOUS SONG */
 
 function previousSong() {
-    currentSong = (currentSong - 1 + songs.length) % songs.length;
+
+    currentSong =
+        (currentSong - 1 + songs.length) % songs.length;
+
     loadSong();
 
-    music.play().then(() => {
-        playPauseBtn.innerText = "Ⅱ";
-    }).catch(() => {
-        playPauseBtn.innerText = "▶";
-    });
+    startMusic();
+
 }
 
-music.addEventListener("ended", nextSong);
+/* AUTOMATICALLY PLAY NEXT SONG WHEN CURRENT ENDS */
+
+music.addEventListener("ended", function() {
+
+    nextSong();
+
+});
+
+/* UPDATE BUTTON WHEN MUSIC PAUSED */
+
+music.addEventListener("pause", function() {
+
+    playPauseBtn.innerText = "▶";
+
+});
+
+music.addEventListener("play", function() {
+
+    playPauseBtn.innerText = "Ⅱ";
+
+});
+
+// LOAD FIRST SONG
+
 loadSong();
 
-/* PAGE FLIP */
+
+/* ==================================
+   PAGE FLIP
+   ================================== */
 
 let pageFlip = null;
+
 let closingBook = false;
+
 let flipBusy = false;
+
 let closeTimer = null;
+
 let thankYouShown = false;
+
 let petalTimer = null;
 
 const bookElement = document.getElementById("book");
 
+/* CURRENT PAGE */
+
 function getCurrentIndex() {
+
     if (!pageFlip) return 0;
+
     return pageFlip.getCurrentPageIndex();
+
 }
 
+/* PAGE COUNTER */
+
 function updatePageCounter() {
+
     if (!pageFlip) return;
 
     const index = getCurrentIndex();
@@ -961,46 +1092,70 @@ function updatePageCounter() {
 
     document.getElementById("pageCounter").innerText =
         labels[index] || "Our Memories ❤️";
+
 }
 
 /* OPEN MAGAZINE */
 
 function openMagazine() {
+
     showScreen("bookScreen");
 
+    // MUSIC CONTINUES PLAYING
+
     document.getElementById("musicPlayer").style.display = "flex";
+
+    if (!musicStarted) {
+        startMusic();
+    }
 
     closingBook = false;
     flipBusy = false;
     thankYouShown = false;
 
+    clearTimeout(closeTimer);
+
     if (pageFlip) {
+
         pageFlip.destroy();
+
         pageFlip = null;
+
     }
 
     pageFlip = new St.PageFlip(bookElement, {
+
         width: 500,
         height: 650,
 
         size: "stretch",
+
         minWidth: 280,
         maxWidth: 1000,
+
         minHeight: 350,
         maxHeight: 750,
 
         drawShadow: true,
+
         maxShadowOpacity: 0.75,
+
         flippingTime: 1400,
 
         usePortrait: false,
+
         showCover: false,
+
         autoSize: true,
+
         mobileScrollSupport: true,
+
         useMouseEvents: true,
 
         startPage: 0,
+
         disableFlipByClick: false
+
     });
 
     const pages = bookElement.querySelectorAll(".page");
@@ -1008,98 +1163,140 @@ function openMagazine() {
     pageFlip.loadFromHTML(pages);
 
     pageFlip.on("init", function() {
+
         updatePageCounter();
+
     });
 
     pageFlip.on("flip", function() {
+
         updatePageCounter();
+
         flipBusy = false;
 
         if (closingBook) {
+
             clearTimeout(closeTimer);
 
             closeTimer = setTimeout(function() {
+
                 closeOneStep();
+
             }, 1450);
+
         }
+
     });
 
     pageFlip.on("changeState", function(event) {
+
         if (event.data === "flipping") {
+
             flipBusy = true;
+
         }
 
         if (event.data === "read") {
+
             flipBusy = false;
+
         }
+
     });
+
 }
 
 /* NEXT PAGE */
 
 function nextPage() {
+
     if (!pageFlip || closingBook || flipBusy) return;
 
     const index = getCurrentIndex();
 
     if (index >= 10) {
+
         showThankYou();
+
         return;
+
     }
 
     pageFlip.flipNext("bottom");
+
 }
 
 /* PREVIOUS PAGE */
 
 function previousPage() {
+
     if (!pageFlip || closingBook || flipBusy) return;
 
     if (getCurrentIndex() <= 0) return;
 
     pageFlip.flipPrev("bottom");
+
 }
 
-/* CLICK ON FINAL BACK COVER */
+/* CLICK ON FINAL COVER */
 
 bookElement.addEventListener("click", function() {
+
     if (!pageFlip || closingBook || flipBusy) return;
 
     if (getCurrentIndex() >= 10) {
+
         setTimeout(function() {
+
             if (
                 pageFlip &&
                 !closingBook &&
                 getCurrentIndex() >= 10
             ) {
+
                 showThankYou();
+
             }
+
         }, 300);
+
     }
+
 });
 
-/* THANK YOU ANIMATION */
+/* THANK YOU SCREEN */
 
 function showThankYou() {
+
     if (closingBook || thankYouShown) return;
 
     thankYouShown = true;
 
-    document.getElementById("musicPlayer").style.display = "none";
+    // MUSIC KEEPS PLAYING ON FINAL SCREEN
+
+    document.getElementById("musicPlayer").style.display = "flex";
 
     showScreen("thankYouScreen");
+
     startPetals();
+
 }
 
+/* FALLING PETALS */
+
 function startPetals() {
+
     clearInterval(petalTimer);
 
-    const thankYou = document.getElementById("thankYouScreen");
+    const thankYou =
+        document.getElementById("thankYouScreen");
 
     petalTimer = setInterval(function() {
+
         if (!thankYou.classList.contains("active")) return;
 
         const petal = document.createElement("div");
+
         petal.className = "petal";
 
         const options = ["🌸", "🌹", "💗", "🌷"];
@@ -1108,6 +1305,7 @@ function startPetals() {
             options[Math.floor(Math.random() * options.length)];
 
         petal.style.left = Math.random() * 100 + "vw";
+
         petal.style.animationDuration =
             (4 + Math.random() * 4) + "s";
 
@@ -1119,92 +1317,131 @@ function startPetals() {
         setTimeout(() => petal.remove(), 8500);
 
     }, 350);
+
 }
 
 /* CLOSE MAGAZINE */
 
 function closeMagazine() {
+
     if (!pageFlip || closingBook) return;
 
     closingBook = true;
+
     flipBusy = true;
 
     clearTimeout(closeTimer);
+
     closeOneStep();
+
 }
 
+/* CLOSE PAGES ONE BY ONE */
+
 function closeOneStep() {
+
     if (!pageFlip || !closingBook) return;
 
     const index = getCurrentIndex();
 
     if (index > 0) {
+
         pageFlip.flipPrev("bottom");
 
         closeTimer = setTimeout(function() {
+
             if (
                 pageFlip &&
                 closingBook &&
                 getCurrentIndex() === index
             ) {
+
                 closeOneStep();
+
             }
+
         }, 1500);
 
     } else {
+
         finishClosing();
+
     }
+
 }
 
+/* FINISH CLOSING */
+
 function finishClosing() {
+
     clearTimeout(closeTimer);
 
     closingBook = false;
+
     flipBusy = false;
 
     if (pageFlip) {
+
         pageFlip.destroy();
+
         pageFlip = null;
+
     }
 
-    document.getElementById("musicPlayer").style.display = "none";
+    // MUSIC DOES NOT STOP
 
-    music.pause();
-    music.currentTime = 0;
-    playPauseBtn.innerText = "▶";
+    document.getElementById("musicPlayer").style.display = "flex";
 
     showScreen("coverScreen");
+
 }
 
 /* REPLAY */
 
 function replayBook() {
+
     clearInterval(petalTimer);
 
     document.querySelectorAll(".petal").forEach(p => p.remove());
 
     if (pageFlip) {
+
         pageFlip.destroy();
+
         pageFlip = null;
+
     }
 
     closingBook = false;
+
     flipBusy = false;
+
     thankYouShown = false;
 
-    music.pause();
-    music.currentTime = 0;
-    playPauseBtn.innerText = "▶";
+    clearTimeout(closeTimer);
 
-    document.getElementById("musicPlayer").style.display = "none";
+    // RESET MUSIC TO FIRST SONG AND REPLAY
+
+    currentSong = 0;
+
+    loadSong();
+
+    document.getElementById("musicPlayer").style.display = "flex";
+
+    startMusic();
+
+    musicStarted = true;
 
     showScreen("introScreen");
+
 }
 
 /* FLOATING HEARTS */
 
 function createFloatingHeart() {
+
     const heart = document.createElement("div");
+
     heart.className = "floating-heart";
 
     const hearts = ["❤️", "💕", "💗", "💖", "💘"];
@@ -1213,6 +1450,7 @@ function createFloatingHeart() {
         hearts[Math.floor(Math.random() * hearts.length)];
 
     heart.style.left = Math.random() * 100 + "vw";
+
     heart.style.fontSize =
         (12 + Math.random() * 18) + "px";
 
@@ -1222,6 +1460,7 @@ function createFloatingHeart() {
     document.body.appendChild(heart);
 
     setTimeout(() => heart.remove(), 10000);
+
 }
 
 setInterval(createFloatingHeart, 900);
